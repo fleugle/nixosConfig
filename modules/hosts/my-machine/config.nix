@@ -8,6 +8,10 @@
     
     imports = [
       self.nixosModules.nixOSHardware
+
+      self.nixosModules.niri
+      self.nixosModules.gnome
+
       self.nixosModules.systemPrograms
     ];
 
