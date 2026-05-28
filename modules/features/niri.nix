@@ -9,11 +9,7 @@
 
     home-manager.sharedModules = [
       {
-        programs.niri = {
-          package = pkgs.niri;
-          config = builtins.readFile /etc/nixos/modules/hosts/my-machine/dots/default-niri-config.kdl
-          settings = self.dots.currentConfigs.niri-conf;
-        };
+        programs.niri = self.dots.currentConfigs.niri-conf // {package = pkgs.niri;};
       }
     ];
 

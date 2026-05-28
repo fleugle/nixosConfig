@@ -406,20 +406,26 @@
       '';
 
       niri-conf = {
-        prefer-no-csd = true;
 
-        input = {
-          keyboard = {
-            xkb.layout = "us,ua";
-          };
 
-          touch = enable;
+        #package = pkgs.niri;
+        config = builtins.readFile ./files/default-niri-config.kdl;
+        # settings = {
+        #   prefer-no-csd = true;
 
-          touchpad = {
-            natural-scroll = true;
-            tap = true;
-          };
-        };
+        #   input = {
+        #     keyboard = {
+        #       xkb.layout = "us,ua";
+        #     };
+
+        #     touch.enable = true;
+
+        #     touchpad = {
+        #       natural-scroll = true;
+        #       tap = true;
+        #     };
+        #   };
+        # };
 
 
 
