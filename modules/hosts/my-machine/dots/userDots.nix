@@ -406,7 +406,23 @@
       '';
 
       niri-conf = {
-        input.keyboard = {xkb.layout = "us,ru";};
+        prefer-no-csd = true;
+
+        input = {
+          keyboard = {
+            xkb.layout = "us,ua";
+          };
+
+          touch = enable;
+
+          touchpad = {
+            natural-scroll = true;
+            tap = true;
+          };
+        };
+
+
+
       };
     };
 
