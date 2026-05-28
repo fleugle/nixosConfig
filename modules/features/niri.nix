@@ -1,30 +1,22 @@
 { self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, lib, ... }: {
+  flake.nixosModules.niri = { pkgs, ... }: {
+    
+    imports = [ inputs.niri-flake.nixosModules.niri ];
     programs.niri = {
       enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+      package = pkgs.niri;
     };
-  };
 
-  perSystem = { pkgs, lib, self', ... }: {
-    packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-      inherit pkgs; 
-      settings = {
-        # spawn-at-startup = [
-        #   (lib.getExe self'.packages.myNoctalia)
-        # ];
-
-        # xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
-
-        input.keyboard.xkb.layout = "us,ru";
-
-        layout.gaps = 5;
-
-        binds = {
-          "Mod+Return".spawn-sh = lib.getExe pkgs.wezterm;
-
+    home-manager.sharedModules = [
+      {
+        programs.niri = {
+          package = pkgs.niri;
+          settings = {
+            input.keyboard = {xkb.layout = "us,ru";};
+          };
         };
-      };
-    };
+      }
+    ];
+
   };
 }

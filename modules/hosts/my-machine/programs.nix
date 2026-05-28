@@ -1,7 +1,7 @@
 {self, inputs, ...}: {
 
-  flake.nixosModules.systemPrograms = { pkgs, lib, ... }:   
-
+  # All system-wide programs and settings for them
+  flake.nixosModules.systemPrograms = { pkgs, ... }:   
   {
 
     # List packages installed in system profile. To search, run:
@@ -66,8 +66,8 @@
 
   };
 
-
-  flake.homeModules.userPrograms = { config, pkgs, inputs, ... }:
+  # All user-wide programs and settings for them for SHARED module (for every user on the system)
+  flake.homeModules.userPrograms = { config, pkgs, ... }:
   let
     #zen-flake = builtins.getFlake "github:0xc000022070/zen-browser-flake";
 
@@ -81,36 +81,16 @@
     };
   in
   {
-    # Importing Zen browser HM module
-    imports = [ inputs.zen-browser.homeModules.beta ];
+    
+    imports = [ inputs.zen-browser-flake.homeModules.beta ];
 
     # User-only packages
     home.packages = with pkgs; [
-      # Messengers -------------------------------------
-      discord
-      telegram-desktop
-      # ------------------------------------------------
-
-      # Jetbrains --------------------------------------
-      jetbrains.idea
-      # ------------------------------------------------
-
-      # School -----------------------------------------
-      #teams # Microsoft teams
-      teams-for-linux
-      # ------------------------------------------------
-
+      
       # Nix-seach-tv -----------------------------------
       ns
       # ------------------------------------------------
-
-      # Readest ----------------------------------------
-      readest
-      # ------------------------------------------------
-
-      # Davinci Resolve --------------------------------
-      #davinci-resolve
-      # ------------------------------------------------
+     
     ];
 
     
@@ -136,14 +116,7 @@
         enable = true;
         nativeMessagingHosts = [pkgs.firefoxpwa];
       };
-
-      git = {
-        enable = true;
-        userName = "Fleugle⭐";
-        userEmail = "nikita.elagin@outlook.com";
-      };
-
-      
+     
 
       #kitty = {
       #  enable = true;
@@ -203,6 +176,44 @@
       #};
 
 
+    };
+  };
+
+  # All fleugle user programs and settings for them
+  flake.homeModules.fleuglePrograms = { config, pkgs, ... }: {
+
+    home.packages = with pkgs; [
+      # Messengers -------------------------------------
+      discord
+      telegram-desktop
+      # ------------------------------------------------
+
+      # Jetbrains --------------------------------------
+      jetbrains.idea
+      # ------------------------------------------------
+
+      # School -----------------------------------------
+      #teams # Microsoft teams
+      teams-for-linux
+      # ------------------------------------------------
+
+      # Entertainment ----------------------------------
+      readest # A convenient and cool Epub reader
+      # ------------------------------------------------
+
+      # Davinci Resolve --------------------------------
+      #davinci-resolve
+      # ------------------------------------------------
+    ];
+
+    programs = {
+      git = {
+        enable = true;
+        settings = {
+          user.name = "Fleugle⭐";
+          user.email = "nikita.elagin@outlook.com";
+        };
+      };
     };
   };
 }

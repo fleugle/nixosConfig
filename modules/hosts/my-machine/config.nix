@@ -4,19 +4,34 @@
   # NixOS config
   flake.nixosModules.nixOSConfig = { pkgs, lib, ... }: 
   {
-    system.stateVersion = "25.11";
     
     imports = [
       self.nixosModules.nixOSHardware
 
-      self.nixosModules.niri
+      self.nixosModules.HMConfig
+
       self.nixosModules.gnome
+      self.nixosModules.niri
 
       self.nixosModules.systemPrograms
     ];
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    users = {
 
+      defaultUserShell = pkgs.fish;    
+
+      users = {
+
+        fleugle = {
+          isNormalUser = true;
+          description = "Nikita Elagin";
+          extraGroups = [ "networkmanager" "wheel" ];
+        };
+
+      };
+    };
+
+    nix.settings.experimental-features = ["nix-command" "flakes"];
 
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
@@ -116,46 +131,24 @@
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    #system.stateVersion = "25.11";
-
-    users = {
-
-      defaultUserShell = pkgs.fish;    
-
-      users.fleugle = {
-        isNormalUser = true;
-        description = "Nikita Elagin";
-        extraGroups = [ "networkmanager" "wheel" ];
-        #packages = with pkgs; [
-        #  thunderbird
-        #];
-      };
-    };
-
-    # Home manager enable
-    home-manager.users.fleugle = self.homeModules.fleugleHMConfig;
-
-
-
-
-
+    system.stateVersion = "25.11";
 
   };
 
 
-
-
   # HM module.
-  flake.homeModules.fleugleHMConfig = { pkgs, lib, ... }:
+  flake.nixosModules.HMConfig = { ... }:
   {
-    imports = [
 
-      # Modules import
+    home-manager.sharedModules = [
+      { home.stateVersion = "25.11"; }
       self.homeModules.userPrograms
-
     ];
 
-
-    home.stateVersion = "25.11";
+    
+    home-manager.users.fleugle = {
+      imports = [ self.homeModules.fleuglePrograms ];
+    };
+  
   };
 }
