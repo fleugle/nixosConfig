@@ -14,6 +14,8 @@
       fastfetch
 
       #gnome-extension-manager
+
+      tree
     ];
 
     # Programms with config

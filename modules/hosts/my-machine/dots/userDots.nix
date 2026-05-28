@@ -408,24 +408,7 @@
       niri-conf = {
 
 
-        #package = pkgs.niri;
-        config = builtins.readFile ./files/default-niri-config.kdl;
-        # settings = {
-        #   prefer-no-csd = true;
-
-        #   input = {
-        #     keyboard = {
-        #       xkb.layout = "us,ua";
-        #     };
-
-        #     touch.enable = true;
-
-        #     touchpad = {
-        #       natural-scroll = true;
-        #       tap = true;
-        #     };
-        #   };
-        # };
+        
 
 
 

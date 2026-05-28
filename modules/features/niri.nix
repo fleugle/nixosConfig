@@ -1,16 +1,19 @@
 { self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, ... }: {
+  flake.nixosModules.niri = { pkgs, config, ... }: {
     
-    imports = [ inputs.niri-flake.nixosModules.niri ];
+    #imports = [ inputs.niri-flake.nixosModules.niri ];
     programs.niri = {
       enable = true;
       package = pkgs.niri;
+      
     };
 
     home-manager.sharedModules = [
-      {
-        programs.niri = self.dots.currentConfigs.niri-conf // {package = pkgs.niri;};
-      }
+      ({ config, lib, ... }: {
+        home.file.".config/niri/config.kdl".source =
+          config.lib.file.mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/nixosConfig/modules/features/files/niri-config.kdl";
+      })
     ];
 
   };
