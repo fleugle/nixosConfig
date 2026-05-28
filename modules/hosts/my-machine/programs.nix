@@ -47,7 +47,7 @@
 
       starship = {
         enable = true;
-        settings = builtins.fromTOML self.colorThemes.currentThemes.starship-conf;
+        settings = builtins.fromTOML self.dots.currentConfigs.starship-conf;
       };
 
       java = {
@@ -144,9 +144,9 @@
           config.default_cursor_style = 'SteadyBar'
 
           config.colors = {
-            cursor_bg = "#${self.colorThemes.currentColorTheme.foreground}",
-            cursor_border = "#${self.colorThemes.currentColorTheme.foreground}",
-            background = "#${self.colorThemes.currentColorTheme.background}",
+            cursor_bg = "#${self.dots.currentColorTheme.foreground}",
+            cursor_border = "#${self.dots.currentColorTheme.foreground}",
+            background = "#${self.dots.currentColorTheme.background}",
           }
 
           config.window_background_opacity = 0.7
@@ -161,7 +161,7 @@
       #  enable = true;
       #  #package = pkgs.ghostty-bin;
       #  settings = {
-      #    background = "#${self.colorThemes.currentColorTheme.background}";
+      #    background = "#${self.dots.currentColorTheme.background}";
       #    #background-opacity = 0.7;
 
       #    cursor-style = "bar";

@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.colorThemes =
+  flake.dots =
   rec{
     purpleBlueColors = rec{
       background = "090910"; # Dark blue-black. low saturation
@@ -23,7 +23,7 @@
 
     currentColorTheme = purpleBlueColors;
 
-    themes = rec {
+    configs = rec {
       fastfetch-conf = {
         # The "$schema" key needs to be quoted because '$' is a special character in Nix
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
@@ -404,9 +404,13 @@
           text-color: inherit;
         }
       '';
+
+      niri-conf = {
+        input.keyboard = {xkb.layout = "us,ru";};
+      };
     };
 
-    currentThemes = themes;
+    currentConfigs = configs;
   };
 }
 

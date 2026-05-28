@@ -11,9 +11,7 @@
       {
         programs.niri = {
           package = pkgs.niri;
-          settings = {
-            input.keyboard = {xkb.layout = "us,ru";};
-          };
+          settings = self.dots.currentConfigs.niri-conf;
         };
       }
     ];
