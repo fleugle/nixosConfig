@@ -2,7 +2,6 @@
 
   # NixOS config
   flake.nixosModules.gnome = { config, pkgs, ... }:
-
   {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -16,5 +15,9 @@
       layout = "us,ru";
       variant = "";
     };
+
+    environment.systemPackages = with pkgs; [
+      gnome-extension-manager
+    ];
   };
 }
