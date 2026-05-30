@@ -142,7 +142,10 @@
   {
 
     home-manager.sharedModules = [
-      { home.stateVersion = "25.11"; }
+      { 
+        home.stateVersion = "25.11"; 
+        home.enableNixpkgsReleaseCheck = false;
+      }
       self.homeModules.userPrograms
     ];
 
