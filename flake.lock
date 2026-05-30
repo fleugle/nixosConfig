@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "driftwm-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780054601,
+        "narHash": "sha256-xvnoUZRlvPa7B7E78+e1o+uGjf9O2z7lKFNCi8i5xKE=",
+        "owner": "malbiruk",
+        "repo": "driftwm",
+        "rev": "466d31a45f34c037af2b06216e2b526ef19f702b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "malbiruk",
+        "repo": "driftwm",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -102,6 +122,7 @@
     },
     "root": {
       "inputs": {
+        "driftwm-flake": "driftwm-flake",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",

@@ -9,13 +9,10 @@
     environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
-
-      # Fastfetch
       fastfetch
-
       #gnome-extension-manager
-
       tree
+
     ];
 
     # Programms with config
@@ -120,11 +117,11 @@
       };
      
 
-      #kitty = {
-      #  enable = true;
-      #  font.size = 12;
-      #  font.name = "AdwaitaMono Nerd Font";
-      #};
+      kitty = {
+       enable = true;
+       font.size = 12;
+       font.name = "AdwaitaMono Nerd Font";
+      };
 
       wezterm = {
         enable = true;
@@ -159,23 +156,23 @@
 
 
 
-      #ghostty = {
-      #  enable = true;
-      #  #package = pkgs.ghostty-bin;
-      #  settings = {
-      #    background = "#${self.dots.currentColorTheme.background}";
-      #    #background-opacity = 0.7;
+      ghostty = {
+       enable = true;
+       #package = pkgs.ghostty-bin;
+       settings = {
+         background = "#${self.dots.currentColorTheme.background}";
+         background-opacity = 0.7;
 
-      #    cursor-style = "bar";
+         cursor-style = "bar";
 
-      #    font-family = "AdwaitaMono Nerd Font";
+         font-family = "AdwaitaMono Nerd Font";
 
-      #    font-size = 12;
+         font-size = 12;
 
-      #    theme = "Adwaita Dark";
+         theme = "Adwaita Dark";
 
-      #  };
-      #};
+       };
+      };
 
 
     };

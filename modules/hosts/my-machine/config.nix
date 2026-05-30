@@ -12,6 +12,7 @@
 
       self.nixosModules.gnome
       self.nixosModules.niri
+      #self.nixosModules.driftwm
 
       self.nixosModules.systemPrograms
     ];
