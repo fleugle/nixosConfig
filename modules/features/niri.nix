@@ -18,7 +18,7 @@
         services.awww.enable = true;
 
         home.packages = with pkgs; [
-          ffmpeg
+          
         ];
 
         home.file.".config/niri/config.kdl".source =
