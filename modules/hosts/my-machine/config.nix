@@ -117,12 +117,17 @@
 
  
     # Fonts --------------------------------------------------------
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
+    fonts.packages = [
+      pkgs.noto-fonts
+      pkgs.noto-fonts-cjk-sans
+      pkgs.noto-fonts-color-emoji
 
-      nerd-fonts.adwaita-mono
+      pkgs.nerd-fonts.adwaita-mono
+
+
+      inputs.apple-fonts.packages.${pkgs.system}.sf-mono-nerd
+      inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd
+      inputs.apple-fonts.packages.${pkgs.system}.ny
     ];
     # --------------------------------------------------------------
 

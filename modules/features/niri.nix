@@ -23,7 +23,7 @@
 
         home.file.".config/niri/config.kdl".source =
           config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/nixosConfig/modules/features/files/niri-config.kdl";
+            "${self.dots.paths.system-config-path}/modules/features/files/niri-config.kdl";
       })
     ];
 

@@ -126,7 +126,7 @@
 
           local config = wezterm.config_builder()
 
-          config.font = wezterm.font("AdwaitaMono Nerd Font")
+          config.font = wezterm.font("SFMono Nerd Font")
           config.font_size = 13
 
           config.cursor_blink_rate = 800
@@ -202,6 +202,10 @@
 
       # Tool to re-encode media files ------------------
       ffmpeg
+      # ------------------------------------------------
+
+      # Obsidian ---------------------------------------
+      obsidian
       # ------------------------------------------------
     ];
 

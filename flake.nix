@@ -28,10 +28,12 @@
       };
     };
 
-    # stylix = {
-    #   url = "github:nix-community/stylix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    apple-fonts.url= "github:Lyndeno/apple-fonts.nix";
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 # import modules/ automatically

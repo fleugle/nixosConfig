@@ -1,6 +1,5 @@
 { self, inputs, ... }: {
-  flake.dots =
-  rec{
+  flake.dots = rec{
     purpleBlueColors = rec{
       background = "090910"; # Dark blue-black. low saturation
       background-lighter = "222225"; #
@@ -16,9 +15,15 @@
 
       icon-set-name = "Adwaita-purple";
 
-      wallpaper-absolute-path = "/etc/nixos/home/dots/wallpapers/purple.jpg";
+      
 
       
+    };
+
+    paths = {
+      wallpaper-absolute-path = "/etc/nixos/home/dots/wallpapers/purple.jpg";
+      
+      system-config-path = "/etc/nixos";
     };
 
     currentColorTheme = purpleBlueColors;
