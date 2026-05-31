@@ -108,6 +108,7 @@
           userSettings = {
             "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
             "explorer.confirmDelete" = false;
+            "git.confirmSync"= false;
             #"workbench.colorTheme" = "Stylix";
             "workbench.colorCustomizations" = {
             "[Stylix]" = {
