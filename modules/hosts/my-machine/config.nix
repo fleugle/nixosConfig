@@ -9,6 +9,7 @@
       self.nixosModules.nixOSHardware
 
       self.nixosModules.HMConfig
+      self.nixosModules.stylix
 
       self.nixosModules.gnome
       self.nixosModules.niri

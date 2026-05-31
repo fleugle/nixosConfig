@@ -101,9 +101,22 @@
       vscode = {
         enable = true;
 
-        profiles.default.extensions = with pkgs.vscode-extensions; [
-          jnoortheen.nix-ide # nix language support
-        ];
+        profiles.default = {
+          extensions = with pkgs.vscode-extensions; [
+            jnoortheen.nix-ide # nix language support
+          ];
+          userSettings = {
+            "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
+            "explorer.confirmDelete" = false;
+            #"workbench.colorTheme" = "Stylix";
+            "workbench.colorCustomizations" = {
+            "[Stylix]" = {
+              "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base03}66";
+              "editor.selectionBackground" = "#${config.lib.stylix.colors.base0E}40";
+            };
+          };
+          };
+        };
       };
 
       # Zen Browser and its config
@@ -115,8 +128,6 @@
 
       kitty = {
        enable = true;
-       font.size = 12;
-       font.name = "AdwaitaMono Nerd Font";
       };
 
       wezterm = {
@@ -125,9 +136,6 @@
           local wezterm = require 'wezterm'
 
           local config = wezterm.config_builder()
-
-          config.font = wezterm.font("SFMono Nerd Font")
-          config.font_size = 13
 
           config.cursor_blink_rate = 800
 
@@ -160,10 +168,6 @@
          background-opacity = 0.7;
 
          cursor-style = "bar";
-
-         font-family = "AdwaitaMono Nerd Font";
-
-         font-size = 12;
 
          theme = "Adwaita Dark";
 
