@@ -144,13 +144,15 @@
 
 
   # HM module.
-  flake.nixosModules.HMConfig = { ... }:
+  flake.nixosModules.HMConfig = { pkgs, ... }:
   {
 
     home-manager.sharedModules = [
       { 
         home.stateVersion = "25.11"; 
         home.enableNixpkgsReleaseCheck = false;
+
+        gtk.iconTheme = self.dots.configs.currentIconTheme pkgs;
       }
       self.homeModules.userPrograms
     ];

@@ -470,6 +470,18 @@
           text-color: inherit;
         }
       '';
+
+      purple-icon-theme = pkgs : {
+        name = "Pebble-Purple";
+        package = inputs.pebble-icons.packages.${pkgs.system}.pebble-purple;
+      };
+
+      default-icon-theme = pkgs : {
+        name = "Pebble";
+        package = inputs.pebble-icons.packages.${pkgs.system}.pebble;
+      };
+
+      currentIconTheme = purple-icon-theme;
     };
 
     currentConfigs = configs;

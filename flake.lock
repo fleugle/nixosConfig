@@ -335,6 +335,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1780243769,
+        "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1779536132,
         "narHash": "sha256-q+fF42iv/geEbHfgSzy3tS0FF/EyD6XTZ98E6yxiBO8=",
         "owner": "NixOS",
@@ -386,6 +402,24 @@
         "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
       }
     },
+    "pebble-icons": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1780352960,
+        "narHash": "sha256-TD9O4EaczQpsDvFr+LS8EamXuSvEHWrW/i9MJIfwo0Y=",
+        "owner": "fleugle",
+        "repo": "Pebble-Icon-Theme-flake",
+        "rev": "a6005a108308ff4c6e794cb1c193eb76a1b76e62",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fleugle",
+        "repo": "Pebble-Icon-Theme-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "apple-fonts": "apple-fonts",
@@ -394,6 +428,7 @@
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs_2",
+        "pebble-icons": "pebble-icons",
         "stylix": "stylix",
         "wrapper-modules": "wrapper-modules",
         "zen-browser-flake": "zen-browser-flake"
@@ -597,7 +632,7 @@
     },
     "wrapper-modules": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1779886850,

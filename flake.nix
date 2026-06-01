@@ -30,6 +30,8 @@
 
     apple-fonts.url= "github:Lyndeno/apple-fonts.nix";
 
+    pebble-icons.url = "github:fleugle/Pebble-Icon-Theme-flake";
+
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
