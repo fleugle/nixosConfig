@@ -109,22 +109,20 @@
             "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
             "explorer.confirmDelete" = false;
             "git.confirmSync"= false;
-            #"workbench.colorTheme" = "Stylix";
             "workbench.colorCustomizations" = {
-            "[Stylix]" = {
-              "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base03}66";
-              "editor.selectionBackground" = "#${config.lib.stylix.colors.base0E}40";
+              "[Stylix]" = {
+                "editor.wordHighlightBackground" = "#${self.dots.currentColorConfs.colors.secondary-accent}20";
+                "editor.selectionBackground" = "#${self.dots.currentColorConfs.colors.accent}20";
+                "sideBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
+                "activityBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
+                "editor.background" = "#${self.dots.currentColorConfs.base16Scheme.base01}";
+              };
             };
-          };
           };
         };
       };
 
-      # Zen Browser and its config
-      zen-browser = {
-        enable = true;
-        nativeMessagingHosts = [pkgs.firefoxpwa];
-      };
+      
      
 
       kitty = {
@@ -148,9 +146,8 @@
           config.default_cursor_style = 'SteadyBar'
 
           config.colors = {
-            cursor_bg = "#${self.dots.currentColorTheme.foreground}",
-            cursor_border = "#${self.dots.currentColorTheme.foreground}",
-            background = "#${self.dots.currentColorTheme.background}",
+            cursor_bg = "#${self.dots.currentColorConfs.colors.foreground}",
+            cursor_border = "#${self.dots.currentColorConfs.colors.foreground}",
           }
 
           config.window_background_opacity = 0.7
@@ -165,7 +162,6 @@
        enable = true;
        #package = pkgs.ghostty-bin;
        settings = {
-         background = "#${self.dots.currentColorTheme.background}";
          background-opacity = 0.7;
 
          cursor-style = "bar";
@@ -215,6 +211,13 @@
     ];
 
     programs = {
+
+      # Zen Browser and its config
+      zen-browser = {
+        enable = true;
+        nativeMessagingHosts = [pkgs.firefoxpwa];
+      };
+
       git = {
         enable = true;
         settings = {
