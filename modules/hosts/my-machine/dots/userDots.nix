@@ -48,7 +48,7 @@
         base00 = "171717";
         base01 = "1a1a1a";
         base02 = "222222";
-        base03 = "3e3e3e";
+        base03 = "474747";
         base04 = "7d7d7d";
         base05 = "929292";
         base06 = "cacaca";
@@ -481,7 +481,7 @@
         package = inputs.pebble-icons.packages.${pkgs.system}.pebble;
       };
 
-      currentIconTheme = purple-icon-theme;
+      currentIconTheme = default-icon-theme;
     };
 
     currentConfigs = configs;
