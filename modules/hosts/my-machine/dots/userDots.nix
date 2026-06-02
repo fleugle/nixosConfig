@@ -6,6 +6,9 @@
     # The `base16Scheme` attribute is structured to be compatible with base16 themes, which makes it easier to create new color schemes by simply providing different base16 values.
     # The `colors` attribute is a more direct mapping of the colors used in the system, which can be used by programs that don't follow the base16 structure.
    
+    # Look https://alex-courtis.github.io/base16-site/ for base16 color scheme guidance.
+
+
     # Example of how to define a custom color scheme:
     purpleBlueCustom = rec {
       base16Scheme = {
@@ -49,14 +52,14 @@
         base01 = "1a1a1a";
         base02 = "222222";
         base03 = "474747";
-        base04 = "7d7d7d";
-        base05 = "929292";
-        base06 = "cacaca";
+        base04 = "838383";
+        base05 = "d0d0d0";
+        base06 = "dddddd";
         base07 = "e0e0e0";
         base08 = "e25a58";
         base09 = "d2744c";
-        base0A = "d4a546";
-        base0B = "8cb63f";
+        base0A = "d7c146";                     #d7c146 #d4c146
+        base0B = "6fb63f"; #86b63f #7fb63f #6fb63f #5fb63f
         base0C = "3ebca7";
         base0D = "369ccf";
         base0E = "8d66f9";
