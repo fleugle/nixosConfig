@@ -6,6 +6,8 @@
   {
     
     imports = [
+      self.nixosModules.binCaches
+
       self.nixosModules.nixOSHardware
 
       self.nixosModules.HMConfig

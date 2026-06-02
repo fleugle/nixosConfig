@@ -84,7 +84,7 @@
 
     # The `paths` attribute is for any file paths that you want to manage through this configuration, such as wallpapers or config file paths for other programs.
     paths = {
-      wallpaper-absolute-path = "/etc/nixos/home/dots/wallpapers/purple.jpg";
+      wallpapers-absolute-path = "/etc/nixos/home/dots/wallpapers/purple.jpg";
       
       system-config-path = "/etc/nixos";
     };
@@ -93,114 +93,119 @@
 
     configs = rec {
       fastfetch-conf = {
-        # The "$schema" key needs to be quoted because '$' is a special character in Nix
-        "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
+        "$schema" =
+          "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
 
-        # We will handle the logo path declaratively below.
-        # Fastfetch itself will expand the tilde '~' at runtime.
         logo = {
-          source = "/etc/nixos/home/dots/fastfetch-logos/nixos-purple-blue.png";
-          type = "auto";
-          height = 17;
-          width = 36;
-          padding = {
-            top = 3;
-            bottom = 3;
-            left = 2;
+          source = "${paths.system-config-path}/modules/hosts/my-machine/dots/files/logos/fastfetch.png";
+          type = "kitty-direct";
 
+          padding = {
+            top = 2;
+            left = 6;
           };
-          #color = {
-          #  "1" = "#${dark-accent}";
-          #  "2" = "#${accent}";
-          #};
+
+          width = 20;
+          height = 15;
         };
 
         display = {
-          separator = " ";
+          separator = "  ";
         };
 
-      
         modules = [
           "break"
-          "break"
-          "break"
+
           {
             type = "custom";
-            format = "               ";
+            format =
+              "\u001b[91m╭─────────────────────────────────────────────────────────────────────╮";
           }
-          "break"
-          {
-            type = "title";
-            keyWidth = 10;
-          }
-          "break"
+
           {
             type = "os";
-            key = " ";
-            keyColor = "34"; # Note: JSON numbers can be strings in Nix if the program expects a string
+            key = "\u001b[31m│\u001b[0m \u001b[37m󰧨 \u001b[0m";
           }
+
           {
             type = "kernel";
-            key = " ";
-            keyColor = "34";
+            key = "\u001b[31m│\u001b[0m \u001b[33m󰻀 \u001b[0m";
+            keyColor = "yellow";
           }
-          {
-            type = "packages";
-            format = "{}";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "shell";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "terminal";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "wm";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "cursor";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "terminalfont";
-            key = " ";
-            keyColor = "34";
-          }
+
           {
             type = "uptime";
-            key = " ";
-            keyColor = "34";
+            key = "\u001b[31m│\u001b[0m \u001b[34m \u001b[0m";
+            keyColor = "cyan";
           }
-          {
-            type = "datetime";
-            format = "{1}-{3}-{11}";
-            key = " ";
-            keyColor = "34";
-          }
-          {
-            type = "media";
-            key = "󰝚 ";
-            keyColor = "34";
-          }
-          "break"
+
           {
             type = "custom";
-            format = "               ";
+            format =
+              "\u001b[91m╰─────────────────────────────────────────────────────────────────────╯";
           }
+
           "break"
+
+          {
+            type = "custom";
+            format =
+              "\u001b[35m╭─────────────────────────────────────────────────────────────────────╮";
+          }
+
+          {
+            type = "chassis";
+            key = "\u001b[35m│\u001b[0m \u001b[31m \u001b[0m";
+          }
+
+          {
+            type = "packages";
+            key = "\u001b[35m│\u001b[0m \u001b[32m \u001b[0m";
+          }
+
+          {
+            type = "shell";
+            key = "\u001b[35m│\u001b[0m \u001b[33m \u001b[0m";
+          }
+
+          {
+            type = "custom";
+            format =
+              "\u001b[35m╰─────────────────────────────────────────────────────────────────────╯";
+          }
+
+          "break"
+
+          {
+            type = "custom";
+            format =
+              "\u001b[93m╭─────────────────────────────────────────────────────────────────────╮";
+          }
+
+          {
+            type = "cpu";
+            key = "\u001b[93m│\u001b[0m \u001b[34m \u001b[0m";
+          }
+
+          {
+            type = "gpu";
+            key = "\u001b[93m│\u001b[0m \u001b[35m󱤓 \u001b[0m";
+          }
+
+          {
+            type = "memory";
+            key = "\u001b[93m│\u001b[0m \u001b[31m \u001b[0m";
+            keyColor = "white";
+          }
+
+          {
+            type = "custom";
+            format =
+              "\u001b[93m╰─────────────────────────────────────────────────────────────────────╯";
+          }
+
           "break"
         ];
-
-
       };
 
       starship-conf = ''

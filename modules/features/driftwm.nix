@@ -13,7 +13,7 @@
       ({ config, lib, ... }: {
         home.file.".config/driftwm/config.toml".source =
           config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/nixosConfig/modules/features/files/driftwm-config.toml";
+            "${config.home.homeDirectory}/nixosConfig/modules/hosts/my-machine/dots/files/driftwm-config.toml";
       })
     ];
 
