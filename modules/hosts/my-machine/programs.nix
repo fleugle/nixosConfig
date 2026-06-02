@@ -109,6 +109,7 @@
             "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
             "explorer.confirmDelete" = false;
             "git.confirmSync"= false;
+            "git.enableSmartCommit" = true;
             "workbench.colorCustomizations" = {
               "[Stylix]" = {
                 "editor.wordHighlightBackground" = "#${self.dots.currentColorConfs.colors.secondary-accent}20";
