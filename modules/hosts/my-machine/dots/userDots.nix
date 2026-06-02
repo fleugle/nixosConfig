@@ -55,8 +55,8 @@
         base07 = "e0e0e0";
         base08 = "e25a58";
         base09 = "d2744c";
-        base0A = "d4b146";
-        base0B = "a6b63f";
+        base0A = "d4a546";
+        base0B = "8cb63f";
         base0C = "3ebca7";
         base0D = "369ccf";
         base0E = "8d66f9";
