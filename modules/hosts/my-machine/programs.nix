@@ -4,7 +4,7 @@
   flake.nixosModules.systemPrograms = { pkgs, ... }:   
   {
 
-    nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
+    #nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
 
 
     # List packages installed in system profile. To search, run:
@@ -12,6 +12,8 @@
     environment.systemPackages = with pkgs; [
       fastfetch
       tree
+
+      gemini-cli
     ];
 
     # Programms with config
@@ -107,6 +109,7 @@
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
             jnoortheen.nix-ide # nix language support
+            Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
           ];
           userSettings = {
             "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
@@ -125,7 +128,6 @@
           };
         };
       };
-
       
      
 
@@ -214,7 +216,11 @@
       # ------------------------------------------------
 
       # Affinity Designer ------------------------------
-      affinity-v3
+      #affinity-v3
+      # ------------------------------------------------
+
+      # Inkscape --------------------------------------
+      inkscape
       # ------------------------------------------------
     ];
 

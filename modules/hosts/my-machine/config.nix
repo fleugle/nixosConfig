@@ -154,7 +154,10 @@
         home.stateVersion = "25.11"; 
         home.enableNixpkgsReleaseCheck = false;
 
-        gtk.iconTheme = self.dots.configs.currentIconTheme pkgs;
+        gtk.iconTheme = {
+          name = "Pebble";
+          package = inputs.pebble-icons.packages.${pkgs.system}.pebble;
+        };
       }
       self.homeModules.userPrograms
     ];

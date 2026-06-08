@@ -18,6 +18,10 @@
 
     environment.systemPackages = with pkgs; [
       gnome-extension-manager
+
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.dash2dock-lite
+      gnomeExtensions.all-in-one-clipboard
     ];
   };
 }

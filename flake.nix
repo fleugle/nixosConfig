@@ -25,7 +25,7 @@
     #-----------------------------------------------------------------------------------------------------
     apple-fonts.url= "github:Lyndeno/apple-fonts.nix";
 
-    pebble-icons.url = "github:fleugle/Pebble-Icon-Theme-flake";
+    pebble-icons.url = "path:/home/fleugle/my-flakes/Pebble-Icon-Theme-flake"; #"github:fleugle/Pebble-Icon-Theme-flake";
     ######################################################################################################
 
 
@@ -52,10 +52,11 @@
         home-manager.follows = "home-manager";
       };
     };
+
     #-----------------------------------------------------------------------------------------------------
     # Affinity V3. A tough one - requires WINE to run, but it's the only way to get Affinity Designer on 
     # Linux, which is my go-to design software. 
-    affinity-nix.url = "github:mrshmllow/affinity-nix"; 
+    # affinity-nix.url = "github:mrshmllow/affinity-nix"; 
     ######################################################################################################
 
   };
