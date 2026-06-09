@@ -17,6 +17,7 @@
       self.nixosModules.niri
       #self.nixosModules.driftwm
 
+      self.nixosModules.fastfetch
       self.nixosModules.systemPrograms
     ];
 

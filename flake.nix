@@ -7,7 +7,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
-    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ######################################################################################################
     
 
@@ -61,8 +64,8 @@
 
   };
 
-# Automatically import all modules from the `modules` directory, which is organized into subdirectories 
-# for features and hosts.
+  # Automatically import all modules from the `modules` directory, which is organized into subdirectories 
+  # for features and hosts.
   outputs = inputs: inputs.flake-parts.lib.mkFlake 
     {inherit inputs;} 
     (inputs.import-tree ./modules);

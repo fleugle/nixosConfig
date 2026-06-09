@@ -13,7 +13,7 @@
       fastfetch
       tree
 
-      gemini-cli
+      antigravity-cli
     ];
 
     # Programms with config
@@ -23,9 +23,10 @@
         enable = true;
         shellAliases = {
           nxr = "sudo nixos-rebuild";
+          update-flake = "nix flake update --flake /etc/nixos/";
           c = "clear";
           nxcg = "sudo nix-collect-garbage"; 
-          ff = "fastfetch";
+          ff = "fastfetch-animated";
           opn = "xdg-open";
         };
         interactiveShellInit = ''
@@ -38,9 +39,10 @@
         enable = true;
         shellAliases = {
           nxr = "sudo nixos-rebuild";
+          update-flake = "nix flake update --flake /etc/nixos/";
           c = "clear";
           nxcg = "sudo nix-collect-garbage"; 
-          ff = "fastfetch";
+          ff = "fastfetch-animated";
           opn = "xdg-open";
         };
       };
@@ -109,7 +111,7 @@
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
             jnoortheen.nix-ide # nix language support
-            Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
+            #Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
           ];
           userSettings = {
             "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
@@ -129,7 +131,12 @@
         };
       };
       
-     
+      # zed-editor = {
+      #   enable = true;
+      #   extensions = [
+      #     "nix"
+      #   ];
+      # };
 
       kitty = {
        enable = true;
@@ -177,7 +184,11 @@
        };
       };
 
-
+      antigravity-cli = {
+        enable = true;
+        defaultModel = "gemini-3.5-flash";
+      };
+      
     };
   };
 
