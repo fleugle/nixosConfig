@@ -113,10 +113,13 @@
           enable = true;
 
           profiles.default = {
-            extensions = with pkgs.vscode-extensions; [
-              jnoortheen.nix-ide # nix language support
-              #Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
-            ];
+            extensions =
+              (with pkgs.vscode-extensions; [ jnoortheen.nix-ide ])
+              ++ (with pkgs.nix-vscode-extensions.vscode-marketplace; [
+                sst-dev.opencode
+                # piersdeseilligny.betterfountain
+                # tomoki1207.pdf
+              ]);
             userSettings = {
               "files.autoSave" = "afterDelay"; # or "onFocusChange", "onWindowChange", "off"
               "explorer.confirmDelete" = false;
@@ -151,49 +154,6 @@
             };
           };
         };
-
-        # lazyvim = {
-        #   enable = true;
-
-        #   extras = {
-        #     lang.nix.enable = true;
-        #     lang.python = {
-        #       enable = true;
-        #       installDependencies = true; # Install ruff
-        #       installRuntimeDependencies = true; # Install python3
-        #     };
-        #     # lang.go = {
-        #     #   enable = true;
-        #     #   installDependencies = true;        # Install gopls, gofumpt, etc.
-        #     #   installRuntimeDependencies = true; # Install go compiler
-        #     # };
-        #   };
-
-        #   # Additional packages (optional)
-        #   extraPackages = with pkgs; [
-        #     nixd # Nix LSP
-        #     alejandra # Nix formatter
-        #   ];
-
-        #   # Only needed for languages not covered by LazyVim extras
-        #   treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-        #     wgsl # WebGPU Shading Language
-        #     #templ     # Go templ files
-        #   ];
-
-        #   plugins = {
-        #     auto-save = ''
-        #       return {
-        #         "okuuva/auto-save.nvim",
-        #         event = { "InsertLeave", "TextChanged" },
-        #         opts = {
-        #           debounce_delay = 1,
-        #         },
-        #       }
-        #     '';
-        #     colorscheme = self.dots.configs.nvim-plugin-custom-theme;
-        #   };
-        # };
 
         # zed-editor = {
         #   enable = true;
@@ -339,6 +299,15 @@
         settings = {
           user.name = "Fleugle⭐";
           user.email = "nikita.elagin@outlook.com";
+        };
+      };
+
+      vscode = {
+        profiles.default = {
+          extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
+              piersdeseilligny.betterfountain
+              tomoki1207.pdf
+            ];
         };
       };
     };

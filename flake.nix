@@ -70,6 +70,13 @@
     # affinity-nix.url = "github:mrshmllow/affinity-nix"; 
 
     #-----------------------------------------------------------------------------------------------------
+    # Daily-updated VS Code extensions from marketplace
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #-----------------------------------------------------------------------------------------------------
     # lazyvim-flake = {
     #   url = "github:pfassina/lazyvim-nix";
     #   inputs = {

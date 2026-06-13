@@ -115,6 +115,9 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
+    # VS Code extensions from marketplace (auto-updated via flake input)
+    nixpkgs.overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+
 
 
 
