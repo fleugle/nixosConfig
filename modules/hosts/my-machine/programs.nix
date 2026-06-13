@@ -85,7 +85,7 @@
 
       imports = [
         inputs.zen-browser-flake.homeModules.beta
-        inputs.lazyvim-flake.homeManagerModules.default
+        # inputs.lazyvim-flake.homeManagerModules.default
 
       ];
 

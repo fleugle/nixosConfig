@@ -54,11 +54,11 @@
 
   flake.homeModules.stylix = { pkgs, config, ... }: {
     stylix = {
-      targets.zed = {
-        enable = true;
-        colors.enable = true;
-        fonts.enable = true;
-      };
+      # targets.zed = {
+      #   enable = true;
+      #   colors.enable = true;
+      #   fonts.enable = true;
+      # };
     };
   };
 }
