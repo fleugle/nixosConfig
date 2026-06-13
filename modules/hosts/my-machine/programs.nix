@@ -122,6 +122,23 @@
               "explorer.confirmDelete" = false;
               "git.confirmSync" = false;
               "git.enableSmartCommit" = true;
+
+              # Nix language server (jnoortheen.nix-ide)
+              "nix.enableLanguageServer" = true;
+              "nix.serverPath" = "nixd";
+              "nix.serverSettings" = {
+                "nixd" = {
+                  "formatting" = {
+                    "command" = [ "nixfmt" ];
+                  };
+                  "options" = {
+                    "nixos" = {
+                      "expr" = "(builtins.getFlake \"/etc/nixos\").nixosConfigurations.nixOS.options";
+                    };
+                  };
+                };
+              };
+
               "workbench.colorCustomizations" = {
                 "[Stylix]" = {
                   "editor.wordHighlightBackground" = "#${self.dots.currentColorConfs.colors.secondary-accent}20";
