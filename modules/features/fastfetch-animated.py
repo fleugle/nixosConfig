@@ -3,8 +3,8 @@ import os
 import sys
 import time
 import subprocess
-import signal
 import argparse
+import select
 
 
 def parse_hex_color(hex_str):
@@ -23,7 +23,7 @@ def generate_points(stroke_width, depth):
         dy = p2[1] - p1[1]
         dz = p2[2] - p1[2]
         dist = math.sqrt(dx*dx + dy*dy + dz*dz)
-        steps = int(math.floor(dist * 1.5))  # Density
+        steps = int(math.floor(dist * 1.5))
         if steps == 0:
             local_points.append((p1[0], p1[1], p1[2], color_id))
             return
@@ -37,7 +37,6 @@ def generate_points(stroke_width, depth):
             ))
 
     num_wedges = 6
-    # Independent Lambda Rotation
     lambda_rot_x = 0.0
     lambda_rot_y = 180.0 * (math.pi / 180.0)
     lambda_rot_z = 230.0 * (math.pi / 180.0)
@@ -128,7 +127,7 @@ def generate_points(stroke_width, depth):
     return local_points
 
 
-def render_frame(
+def render_logo(
     angle_x, angle_y, points, logo_width, logo_height, c_dark, c_light
 ):
     z_buffer = [-float('inf')] * (logo_width * logo_height)
@@ -189,16 +188,7 @@ def get_fastfetch_info():
             return [line.rstrip() for line in res.stdout.splitlines()]
     except Exception:
         pass
-    return ["Fastfetch could not be run. Check if fastfetch is installed."]
-
-
-def sigint_handler(sig, frame):
-    sys.stdout.write("\033[?25h\033[?7h\n")
-    sys.stdout.flush()
-    sys.exit(0)
-
-
-signal.signal(signal.SIGINT, sigint_handler)
+    return None
 
 
 def main():
@@ -259,21 +249,32 @@ def main():
 
     points = generate_points(args.thickness, args.depth)
     sys_info = get_fastfetch_info()
+    if sys_info is None:
+        sys_info = [
+            "Fastfetch could not be run. Check if fastfetch is installed."
+        ]
 
-    # Hide cursor and disable line wrap
-    sys.stdout.write("\033[?25l\033[?7l")
+    sys.stdout.write("\033[?1049h\033[?7l\033[?25l")
     sys.stdout.flush()
 
     angle_x = 0.0
     angle_y = 0.0
 
-    last_lines_count = 0
     start_time = time.time()
     frame_delay = 1.0 / args.fps
+    frame_count = 0
+    refresh_interval = max(1, args.fps)
+    last_lines = []
 
     try:
         while True:
-            char_grid = render_frame(
+            if frame_count % refresh_interval == 0:
+                new_info = get_fastfetch_info()
+                if new_info is not None:
+                    sys_info = new_info
+            frame_count += 1
+
+            char_grid = render_logo(
                 angle_x, angle_y, points,
                 logo_width, logo_height,
                 c_dark, c_light
@@ -300,15 +301,14 @@ def main():
 
                 sep = "  "
                 info_part = sys_info[i] if i < len(sys_info) else ""
-                lines.append(logo_part + sep + info_part)
+                lines.append(logo_part + sep + info_part + "\033[K")
 
-            if last_lines_count > 0:
-                sys.stdout.write(f"\033[{last_lines_count}A")
+            while select.select([sys.stdin], [], [], 0)[0]:
+                sys.stdin.read(1)
 
-            sys.stdout.write("\n".join(lines) + "\n")
+            last_lines = lines
+            sys.stdout.write("\033[H" + "\n".join(lines) + "\033[J")
             sys.stdout.flush()
-
-            last_lines_count = len(lines)
 
             if duration > 0.0 and (time.time() - start_time) >= duration:
                 break
@@ -321,8 +321,9 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        # Restore cursor and line wrap on exit
-        sys.stdout.write("\033[?25h\033[?7h\n")
+        sys.stdout.write("\033[?25h\033[?7h\033[?1049l")
+        if last_lines:
+            sys.stdout.write("\n" + "\n".join(last_lines) + "\n")
         sys.stdout.flush()
 
 

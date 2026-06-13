@@ -130,13 +130,13 @@
 
           {
             type = "kernel";
-            key = "│ 󰻀 [0m";
+            key = "│ 󰻀 ";
             keyColor = "yellow";
           }
 
           {
             type = "uptime";
-            key = "│  [0m";
+            key = "│  ";
             keyColor = "cyan";
           }
 
