@@ -1,5 +1,5 @@
-{self, inputs, ...}: {
-  flake.nixosModules.nixOSHardware = { config, lib, pkgs, modulesPath, ... }:
+{ ... }: {
+  flake.nixosModules.nixOSHardware = { lib, ... }:
 
   {
     imports = [ ];

@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ ... }: {
   flake.dots = rec {
 
     # Colors configs for stylix and other programs that can use them, for SHARED module (for every user on the system)
@@ -92,7 +92,7 @@
 
     currentColorConfs = default;
 
-    configs = rec {
+    configs = {
       fastfetch-conf = {
         "$schema" =
           "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";

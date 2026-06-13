@@ -1,5 +1,5 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, config, ... }: {
+{ self, ... }: {
+  flake.nixosModules.niri = { pkgs, ... }: {
     
     #imports = [ inputs.niri-flake.nixosModules.niri ];
     programs.niri = {
@@ -13,13 +13,13 @@
     ];
 
     home-manager.sharedModules = [
-      ({ config, lib, ... }: {
+      ({ config, ... }: {
 
         services.awww.enable = true;
 
-        home.packages = with pkgs; [
+        # home.packages = with pkgs; [
           
-        ];
+        # ];
 
         home.file.".config/niri/config.kdl".source =
           config.lib.file.mkOutOfStoreSymlink

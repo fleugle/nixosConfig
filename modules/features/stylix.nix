@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.stylix = { pkgs, config, ... }: {
+  flake.nixosModules.stylix = { pkgs, ... }: {
     imports = [inputs.stylix.nixosModules.stylix];
 
     stylix = {
@@ -52,7 +52,7 @@
     };
   };
 
-  flake.homeModules.stylix = { pkgs, config, ... }: {
+  flake.homeModules.stylix = { ... }: {
     stylix = {
       # targets.zed = {
       #   enable = true;
