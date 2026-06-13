@@ -1,199 +1,247 @@
-{self, inputs, ...}: {
+{ self, inputs, ... }: {
 
   # All system-wide programs and settings for them
-  flake.nixosModules.systemPrograms = { pkgs, ... }:   
-  {
+  flake.nixosModules.systemPrograms =
+    { pkgs, ... }:
+    {
+      imports = [
+        self.nixosModules.fastfetchAnimated
+      ];
+      #nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
 
-    #nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
+      # List packages installed in system profile. To search, run:
+      # $ nix search wget
+      environment.systemPackages = with pkgs; [
+        fastfetch
+        tree
+      ];
 
+      # Programms with config
+      programs = {
 
-    # List packages installed in system profile. To search, run:
-    # $ nix search wget
-    environment.systemPackages = with pkgs; [
-      fastfetch
-      tree
-
-      antigravity-cli
-    ];
-
-    # Programms with config
-    programs = {
-
-      fish = {
-        enable = true;
-        shellAliases = {
-          nxr = "sudo nixos-rebuild";
-          update-flake = "nix flake update --flake /etc/nixos/";
-          c = "clear";
-          nxcg = "sudo nix-collect-garbage"; 
-          ff = "fastfetch-animated";
-          opn = "xdg-open";
+        fish = {
+          enable = true;
+          shellAliases = {
+            nxr = "sudo nixos-rebuild";
+            update-flake = "nix flake update --flake /etc/nixos/";
+            c = "clear";
+            nxcg = "sudo nix-collect-garbage";
+            ff = "fastfetch-animated";
+            opn = "xdg-open";
+          };
+          interactiveShellInit = ''
+            set fish_greeting
+          '';
         };
-        interactiveShellInit = ''
-          set fish_greeting
-        '';
-      };
 
+        bash = {
+          enable = true;
+          shellAliases = {
+            nxr = "sudo nixos-rebuild";
+            update-flake = "nix flake update --flake /etc/nixos/";
+            c = "clear";
+            nxcg = "sudo nix-collect-garbage";
+            ff = "fastfetch-animated";
+            opn = "xdg-open";
+          };
+        };
 
-      bash = {
-        enable = true;
-        shellAliases = {
-          nxr = "sudo nixos-rebuild";
-          update-flake = "nix flake update --flake /etc/nixos/";
-          c = "clear";
-          nxcg = "sudo nix-collect-garbage"; 
-          ff = "fastfetch-animated";
-          opn = "xdg-open";
+        starship = {
+          enable = true;
+          settings = fromTOML self.dots.currentConfigs.starship-conf;
+        };
+
+        java = {
+          enable = true;
         };
       };
 
-      starship = {
-        enable = true;
-        settings = builtins.fromTOML self.dots.currentConfigs.starship-conf;
-      };
+      # Some programs need SUID wrappers, can be configured further or are
+      # started in user sessions.
+      # programs.mtr.enable = true;
+      # programs.gnupg.agent = {
+      #   enable = true;
+      #   enableSSHSupport = true;
+      # };
 
-      java = {
-        enable = true;
-      };
     };
-
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-
-  };
 
   # All user-wide programs and settings for them for SHARED module (for every user on the system)
-  flake.homeModules.userPrograms = { config, pkgs, ... }:
-  let
-    #zen-flake = builtins.getFlake "github:0xc000022070/zen-browser-flake";
+  flake.homeModules.userPrograms =
+    { pkgs, ... }:
+    let
+      #zen-flake = builtins.getFlake "github:0xc000022070/zen-browser-flake";
 
-    ns = pkgs.writeShellApplication {
-      name = "ns";
-      runtimeInputs = with pkgs; [
-        fzf
-        nix-search-tv
-      ];
-      text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
-    };
-  in
-  {
-    
-    imports = [ inputs.zen-browser-flake.homeModules.beta ];
-
-    # User-only packages
-    home.packages = with pkgs; [
-      
-      # Nix-seach-tv -----------------------------------
-      ns
-      # ------------------------------------------------
-     
-    ];
-
-    
-    programs ={
-
-      fzf = {
-        enable = true;
-        enableBashIntegration = true;
-        enableFishIntegration = true;
+      ns = pkgs.writeShellApplication {
+        name = "ns";
+        runtimeInputs = with pkgs; [
+          fzf
+          nix-search-tv
+        ];
+        text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
       };
+    in
+    {
 
-      # VS Code with extensions
-      vscode = {
-        enable = true;
+      imports = [
+        inputs.zen-browser-flake.homeModules.beta
+        inputs.lazyvim-flake.homeManagerModules.default
 
-        profiles.default = {
-          extensions = with pkgs.vscode-extensions; [
-            jnoortheen.nix-ide # nix language support
-            #Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
-          ];
-          userSettings = {
-            "files.autoSave" = "afterDelay";  # or "onFocusChange", "onWindowChange", "off"
-            "explorer.confirmDelete" = false;
-            "git.confirmSync"= false;
-            "git.enableSmartCommit" = true;
-            "workbench.colorCustomizations" = {
-              "[Stylix]" = {
-                "editor.wordHighlightBackground" = "#${self.dots.currentColorConfs.colors.secondary-accent}20";
-                "editor.selectionBackground" = "#${self.dots.currentColorConfs.colors.accent}20";
-                "sideBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
-                "activityBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
-                "editor.background" = "#${self.dots.currentColorConfs.base16Scheme.base01}";
+      ];
+
+      # User-only packages
+      home.packages = with pkgs; [
+
+        # Nix-seach-tv -----------------------------------
+        ns
+        # ------------------------------------------------
+
+        nil
+        nixd
+      ];
+
+      programs = {
+
+        fzf = {
+          enable = true;
+          enableBashIntegration = true;
+          enableFishIntegration = true;
+        };
+
+        # VS Code with extensions
+        vscode = {
+          enable = true;
+
+          profiles.default = {
+            extensions = with pkgs.vscode-extensions; [
+              jnoortheen.nix-ide # nix language support
+              #Google.gemini-cli-vscode-ide-companion # Gemini CLI companion for VS Code, provides code completions and other AI features in the editor
+            ];
+            userSettings = {
+              "files.autoSave" = "afterDelay"; # or "onFocusChange", "onWindowChange", "off"
+              "explorer.confirmDelete" = false;
+              "git.confirmSync" = false;
+              "git.enableSmartCommit" = true;
+              "workbench.colorCustomizations" = {
+                "[Stylix]" = {
+                  "editor.wordHighlightBackground" = "#${self.dots.currentColorConfs.colors.secondary-accent}20";
+                  "editor.selectionBackground" = "#${self.dots.currentColorConfs.colors.accent}20";
+                  "sideBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
+                  "activityBar.background" = "#${self.dots.currentColorConfs.base16Scheme.base00}";
+                  "editor.background" = "#${self.dots.currentColorConfs.base16Scheme.base01}";
+                };
               };
             };
           };
         };
+
+        lazyvim = {
+          enable = true;
+
+          extras = {
+            lang.nix.enable = true;
+            lang.python = {
+              enable = true;
+              installDependencies = true; # Install ruff
+              installRuntimeDependencies = true; # Install python3
+            };
+            # lang.go = {
+            #   enable = true;
+            #   installDependencies = true;        # Install gopls, gofumpt, etc.
+            #   installRuntimeDependencies = true; # Install go compiler
+            # };
+          };
+
+          # Additional packages (optional)
+          extraPackages = with pkgs; [
+            nixd # Nix LSP
+            alejandra # Nix formatter
+          ];
+
+          # Only needed for languages not covered by LazyVim extras
+          treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+            wgsl # WebGPU Shading Language
+            #templ     # Go templ files
+          ];
+
+          plugins.auto-save = ''
+            return {
+              "okuuva/auto-save.nvim",
+              event = { "InsertLeave", "TextChanged" },
+              opts = {
+                debounce_delay = 1,
+              },
+            }
+          '';
+        };
+
+        zed-editor = {
+          enable = true;
+          extensions = [
+            "nix"
+            "opencode"
+          ];
+          userSettings = {
+            autosave = {
+              after_delay.milliseconds = 10;
+            };
+          };
+        };
+
+        fastfetch = {
+          enable = true;
+          settings = self.dots.currentConfigs.fastfetch-conf;
+        };
+
+        kitty = {
+          enable = true;
+        };
+
+        wezterm = {
+          enable = true;
+          extraConfig = ''
+            local wezterm = require 'wezterm'
+
+            local config = wezterm.config_builder()
+
+            config.cursor_blink_rate = 800
+
+            config.window_decorations = 'NONE'
+            config.enable_tab_bar = false
+
+            config.color_scheme = 'carbonfox'
+
+            config.default_cursor_style = 'SteadyBar'
+
+            config.colors = {
+              cursor_bg = "#${self.dots.currentColorConfs.colors.foreground}",
+              cursor_border = "#${self.dots.currentColorConfs.colors.foreground}",
+            }
+
+            config.window_background_opacity = 0.7
+
+            return config
+          '';
+        };
+
+        ghostty = {
+          enable = true;
+          #package = pkgs.ghostty-bin;
+          settings = {
+            background-opacity = 0.7;
+
+            cursor-style = "bar";
+
+            theme = "Adwaita Dark";
+
+          };
+        };
+
       };
-      
-      # zed-editor = {
-      #   enable = true;
-      #   extensions = [
-      #     "nix"
-      #   ];
-      # };
-
-      kitty = {
-       enable = true;
-      };
-
-      wezterm = {
-        enable = true;
-        extraConfig = ''
-          local wezterm = require 'wezterm'
-
-          local config = wezterm.config_builder()
-
-          config.cursor_blink_rate = 800
-
-          config.window_decorations = 'NONE'
-          config.enable_tab_bar = false
-
-          config.color_scheme = 'carbonfox'
-
-          config.default_cursor_style = 'SteadyBar'
-
-          config.colors = {
-            cursor_bg = "#${self.dots.currentColorConfs.colors.foreground}",
-            cursor_border = "#${self.dots.currentColorConfs.colors.foreground}",
-          }
-
-          config.window_background_opacity = 0.7
-
-          return config
-        '';
-      };
-
-
-
-      ghostty = {
-       enable = true;
-       #package = pkgs.ghostty-bin;
-       settings = {
-         background-opacity = 0.7;
-
-         cursor-style = "bar";
-
-         theme = "Adwaita Dark";
-
-       };
-      };
-
-      antigravity-cli = {
-        enable = true;
-        defaultModel = "gemini-3.5-flash";
-      };
-      
     };
-  };
 
   # All fleugle user programs and settings for them
-  flake.homeModules.fleuglePrograms = { config, pkgs, ... }: {
+  flake.homeModules.fleuglePrograms = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # Messengers -------------------------------------
@@ -240,7 +288,7 @@
       # Zen Browser and its config
       zen-browser = {
         enable = true;
-        nativeMessagingHosts = [pkgs.firefoxpwa];
+        nativeMessagingHosts = [ pkgs.firefoxpwa ];
       };
 
       git = {

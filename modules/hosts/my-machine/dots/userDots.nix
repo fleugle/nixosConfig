@@ -64,6 +64,7 @@
         base0D = "369ccf";
         base0E = "8d66f9";
         base0F = "d650a7";
+        variant = "dark";
       };
 
       colors = {
@@ -96,18 +97,18 @@
         "$schema" =
           "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
 
-        logo = {
-          source = "${paths.system-config-path}/modules/hosts/my-machine/dots/files/logos/fastfetch.png";
-          type = "kitty-direct";
+        # logo = {
+        #   source = "${paths.system-config-path}/modules/hosts/my-machine/dots/files/logos/fastfetch.png";
+        #   type = "kitty-direct";
 
-          padding = {
-            top = 2;
-            left = 6;
-          };
+        #   padding = {
+        #     top = 2;
+        #     left = 6;
+        #   };
 
-          width = 20;
-          height = 15;
-        };
+        #   width = 20;
+        #   height = 15;
+        # };
 
         display = {
           separator = "  ";

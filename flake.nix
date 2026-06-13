@@ -4,6 +4,14 @@
     #__FLAKE'S-BASE__###############################################__MAIN-REPO-CHANNEL-&--FLAKE-PARTS__##
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # NUR (Nix User Repository) - a collection of user-contributed Nix packages and modules, 
+    # which is a great way to access a wide variety of software and configurations that may 
+    # not be available in the main nixpkgs repository.
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
@@ -60,6 +68,15 @@
     # Affinity V3. A tough one - requires WINE to run, but it's the only way to get Affinity Designer on 
     # Linux, which is my go-to design software. 
     # affinity-nix.url = "github:mrshmllow/affinity-nix"; 
+
+    #-----------------------------------------------------------------------------------------------------
+    lazyvim-flake = {
+      url = "github:pfassina/lazyvim-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
     ######################################################################################################
 
   };

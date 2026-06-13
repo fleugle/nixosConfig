@@ -1,5 +1,5 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.driftwm = { pkgs, config, lib, ... }: {
+{ inputs, ... }: {
+  flake.nixosModules.driftwm = { pkgs, lib, ... }: {
 
     services.displayManager.sessionPackages = [ inputs.driftwm-flake.packages.${pkgs.stdenv.hostPlatform.system}.default ];
     environment.systemPackages = [ inputs.driftwm-flake.packages.${pkgs.stdenv.hostPlatform.system}.default ];
@@ -10,7 +10,7 @@
     };
 
     home-manager.sharedModules = [
-      ({ config, lib, ... }: {
+      ({ config, ... }: {
         home.file.".config/driftwm/config.toml".source =
           config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/nixosConfig/modules/hosts/my-machine/dots/files/driftwm-config.toml";

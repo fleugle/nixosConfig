@@ -1,5 +1,5 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.binCaches = { pkgs, config, ... }: {
+{ ... }: {
+  flake.nixosModules.binCaches = { ... }: {
     nix.settings = {
       substituters = [
         "https://cache.nixos.org"

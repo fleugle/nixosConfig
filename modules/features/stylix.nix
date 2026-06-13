@@ -43,8 +43,22 @@
 
       # targets = {
       #   #vscode.enable = false;
-      
+      #   zed = {
+      #     enable = true;
+      #     colors.enable = true;
+      #     font.enable = true;
+      #   };
       # };
+    };
+  };
+
+  flake.homeModules.stylix = { pkgs, config, ... }: {
+    stylix = {
+      targets.zed = {
+        enable = true;
+        colors.enable = true;
+        fonts.enable = true;
+      };
     };
   };
 }

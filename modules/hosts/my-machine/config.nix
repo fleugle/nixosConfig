@@ -2,9 +2,9 @@
 {self, inputs, ...}: {
 
   # NixOS config
-  flake.nixosModules.nixOSConfig = { pkgs, lib, ... }: 
+  flake.nixosModules.nixOSConfig = { pkgs, ... }:
   {
-    
+
     imports = [
       self.nixosModules.binCaches
 
@@ -17,13 +17,15 @@
       self.nixosModules.niri
       #self.nixosModules.driftwm
 
-      self.nixosModules.fastfetch
+
       self.nixosModules.systemPrograms
+
+      self.nixosModules.aiTools
     ];
 
     users = {
 
-      defaultUserShell = pkgs.fish;    
+      defaultUserShell = pkgs.fish;
 
       users = {
 
@@ -38,16 +40,18 @@
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
+    programs.nix-ld.enable = true;
+
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
-    
+
     # Enable the OpenSSH daemon.
     # services.openssh.enable = true;
-    
+
     hardware = {
       graphics = {
         enable = true;
@@ -99,7 +103,7 @@
 
     # Enable networking
     networking.networkmanager.enable = true;
-    
+
       # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
@@ -110,16 +114,16 @@
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
-    
-    
 
-    
+
+
+
     # Install firefox.
     #programs.firefox.enable = false;
 
 
 
- 
+
     # Fonts --------------------------------------------------------
     fonts.packages = [
       pkgs.noto-fonts
@@ -151,8 +155,8 @@
   {
 
     home-manager.sharedModules = [
-      { 
-        home.stateVersion = "25.11"; 
+      {
+        home.stateVersion = "25.11";
         home.enableNixpkgsReleaseCheck = false;
 
         gtk.iconTheme = {
@@ -160,13 +164,14 @@
           package = inputs.pebble-icons.packages.${pkgs.system}.pebble;
         };
       }
+      self.homeModules.stylix
       self.homeModules.userPrograms
     ];
 
-    
+
     home-manager.users.fleugle = {
       imports = [ self.homeModules.fleuglePrograms ];
     };
-  
+
   };
 }

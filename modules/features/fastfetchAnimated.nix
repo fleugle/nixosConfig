@@ -1,5 +1,5 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.fastfetch = { config, pkgs, ... }:
+{ self, ... }: {
+  flake.nixosModules.fastfetchAnimated = { pkgs, ... }:
   let
     accent = self.dots.currentColorConfs.colors.accent;
     secondaryAccent = self.dots.currentColorConfs.colors.secondary-accent;
