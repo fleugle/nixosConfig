@@ -1,4 +1,5 @@
 import math
+import os
 import sys
 import time
 import subprocess
@@ -177,8 +178,9 @@ def render_frame(
 
 def get_fastfetch_info():
     try:
+        shell = os.environ.get("SHELL", "sh")
         res = subprocess.run(
-            ["fastfetch", "-l", "none"],
+            [shell, "-c", "fastfetch -l none --pipe false"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
