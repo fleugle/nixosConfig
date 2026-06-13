@@ -135,58 +135,84 @@
           };
         };
 
-        lazyvim = {
-          enable = true;
+        # lazyvim = {
+        #   enable = true;
 
-          extras = {
-            lang.nix.enable = true;
-            lang.python = {
-              enable = true;
-              installDependencies = true; # Install ruff
-              installRuntimeDependencies = true; # Install python3
-            };
-            # lang.go = {
-            #   enable = true;
-            #   installDependencies = true;        # Install gopls, gofumpt, etc.
-            #   installRuntimeDependencies = true; # Install go compiler
-            # };
-          };
+        #   extras = {
+        #     lang.nix.enable = true;
+        #     lang.python = {
+        #       enable = true;
+        #       installDependencies = true; # Install ruff
+        #       installRuntimeDependencies = true; # Install python3
+        #     };
+        #     # lang.go = {
+        #     #   enable = true;
+        #     #   installDependencies = true;        # Install gopls, gofumpt, etc.
+        #     #   installRuntimeDependencies = true; # Install go compiler
+        #     # };
+        #   };
 
-          # Additional packages (optional)
-          extraPackages = with pkgs; [
-            nixd # Nix LSP
-            alejandra # Nix formatter
-          ];
+        #   # Additional packages (optional)
+        #   extraPackages = with pkgs; [
+        #     nixd # Nix LSP
+        #     alejandra # Nix formatter
+        #   ];
 
-          # Only needed for languages not covered by LazyVim extras
-          treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-            wgsl # WebGPU Shading Language
-            #templ     # Go templ files
-          ];
+        #   # Only needed for languages not covered by LazyVim extras
+        #   treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+        #     wgsl # WebGPU Shading Language
+        #     #templ     # Go templ files
+        #   ];
 
-          plugins.auto-save = ''
-            return {
-              "okuuva/auto-save.nvim",
-              event = { "InsertLeave", "TextChanged" },
-              opts = {
-                debounce_delay = 1,
-              },
-            }
-          '';
-        };
+        #   plugins = {
+        #     auto-save = ''
+        #       return {
+        #         "okuuva/auto-save.nvim",
+        #         event = { "InsertLeave", "TextChanged" },
+        #         opts = {
+        #           debounce_delay = 1,
+        #         },
+        #       }
+        #     '';
+        #     colorscheme = self.dots.configs.nvim-plugin-custom-theme;
+        #   };
+        # };
 
-        zed-editor = {
-          enable = true;
-          extensions = [
-            "nix"
-            "opencode"
-          ];
-          userSettings = {
-            autosave = {
-              after_delay.milliseconds = 10;
-            };
-          };
-        };
+        # zed-editor = {
+        #   enable = true;
+        #   extensions = [
+        #     "nix"
+        #     "opencode"
+        #     "mcp-server-github"
+        #   ];
+        #   userSettings = {
+        #     autosave = {
+        #       after_delay.milliseconds = 10;
+        #     };
+        #     terminal = {
+        #       font_family = "SFMono Nerd Font";
+        #       font_size = 13;
+        #       line_height = "comfortable";
+        #       blinking = "on";
+        #       cursor_shape = "bar";
+        #       dock = "bottom";
+        #       default_height = 350;
+        #       max_scroll_history_lines = 10000;
+        #       minimum_contrast = 0.5;
+        #       env = {
+        #         EDITOR = "zed";
+        #       };
+        #     };
+
+        #     # agent_servers = {
+        #     #   OpenCode = {
+        #     #     type = "custom";
+        #     #     command = "opencode";
+        #     #     args = ["acp"];
+        #     #   };
+        #     # };
+        #   };
+        # };
 
         fastfetch = {
           enable = true;

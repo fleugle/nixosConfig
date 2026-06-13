@@ -70,13 +70,13 @@
     # affinity-nix.url = "github:mrshmllow/affinity-nix"; 
 
     #-----------------------------------------------------------------------------------------------------
-    lazyvim-flake = {
-      url = "github:pfassina/lazyvim-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
+    # lazyvim-flake = {
+    #   url = "github:pfassina/lazyvim-nix";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     home-manager.follows = "home-manager";
+    #   };
+    # };
     ######################################################################################################
 
   };
